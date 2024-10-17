@@ -59,8 +59,7 @@ const lamps = [
     const cartList = document.querySelector('.cart-list');
     const cartTotalElement = document.getElementById('total');
 
-  // Function to create and append a list item for each lamp
-  function createListItem(lamp) {
+function createListItem(lamp) {
     const li = document.createElement('li');
     li.className = 'item';
   
@@ -103,22 +102,20 @@ const lamps = [
   }
 
   function addToCart(lamp) {
-    // Check if item already exists in the cart
     const existingItem = cartList.querySelector(`.cart-item[data-id="${lamp.id}"]`);
     const currentTotal = parseFloat(cartTotalElement.textContent.slice(1)) || 0;
 
     if (existingItem) {
-      // Update quantity and price for existing item
       const itemQuantity = existingItem.querySelector('.qty span:nth-child(2)');
       const itemPrice = existingItem.querySelector('.total');
   
       itemQuantity.textContent = parseInt(itemQuantity.textContent) + 1;
       itemPrice.textContent = `$${(parseFloat(itemPrice.textContent.slice(1)) + lamp.price).toFixed(2)}`;
     } else 
-      {// Create a new cart item element
+      {
     const cartItem = document.createElement('div');
     cartItem.className = 'cart-item';
-    cartItem.dataset.id = lamp.id; // Set a data attribute to store the product ID
+    cartItem.dataset.id = lamp.id; 
 
     cartItem.innerHTML = `
       <div>
@@ -137,17 +134,50 @@ const lamps = [
       </div>
     `;
 
-    // Append the cart item to the cart list
     cartList.appendChild(cartItem);
   }
 
-  // Update cart total after adding a new item or updating an existing one
   const newTotal = currentTotal + lamp.price;
+  cartTotalElement.textContent = `$${newTotal.toFixed(2)}`;
+}
+
+cartList.addEventListener('click', (event) => {
+  const target = event.target;
+
+  if (target.classList.contains('remove')) {
+    removeItem(target.closest('.cart-item'));
+  } else if (target.classList.contains('add')) {
+    addItem(target.closest('.cart-item'));
+  }
+});
+
+function removeItem(cartItem) {
+  cartItem.remove();
+
+
+  const itemPrice = parseFloat(cartItem.querySelector('.total').textContent.slice(1));
+  const newTotal = cartTotalElement.textContent.slice(1) - itemPrice;
+  cartTotalElement.textContent = `$${newTotal.toFixed(2)}`;
+
+  const cartQuantity = document.querySelector('.icons span');
+  cartQuantity.textContent = parseInt(cartQuantity.textContent) - 1;
+
+}
+
+function addItem(cartItem) {
+  const itemQuantity = cartItem.querySelector('.qty span:nth-child(2)');
+  const itemPrice = cartItem.querySelector('.total');
+
+  itemQuantity.textContent = parseInt(itemQuantity.textContent) + 1;
+  itemPrice.textContent = `$${(parseFloat(itemPrice.textContent.slice(1)) + lamp.price).toFixed(2)}`;
+
+  // Update cart total
+  const cartTotal = parseFloat(cartTotalElement.textContent.slice(1));
+  const newTotal = cartTotal + lamp.price;
   cartTotalElement.textContent = `$${newTotal.toFixed(2)}`;
 }
   
 
-  // Populate the list with items from the JSON data
   lamps.forEach(lamp => {
     shoppingItemsList.appendChild(createListItem(lamp));
   });
