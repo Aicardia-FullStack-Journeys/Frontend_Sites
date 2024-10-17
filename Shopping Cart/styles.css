@@ -1,0 +1,23 @@
+#items-banner .icons {
+    position: relative;
+}
+  
+#items-banner .icons span {
+    display: flex;
+    width: 25px;
+    height: 25px;
+    background-color: mistyrose;
+    justify-content: center;
+    color: brown;
+    align-items: center;
+    border-radius: 50px;
+    position: absolute;
+    top: 50%;
+    right: -10px;
+  }
+
+
+  
+  
+  
+ 

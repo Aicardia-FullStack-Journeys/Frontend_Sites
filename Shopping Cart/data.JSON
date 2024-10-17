@@ -1,0 +1,49 @@
+{
+    "lamps": [
+      {
+        "name": "A-Stand Lamp",
+        "image": "./Assets/aStand_lamp.png",
+        "price": 23.20
+      },
+      {
+        "name": "Banana Lamp",
+        "image": "./Assets/banana_lamp.png",
+        "price": 17.00
+      },
+      {
+        "name": "Bowl Lamp",
+        "image": "./Assets/bowl_lamps.png",
+        "price": 7.00
+      },
+      {
+        "name": "Drop Lamp",
+        "image": "./Assets/drop_lamps.png",
+        "price": 6.00
+      },
+      {
+        "name": "Dune Lamp",
+        "image": "./Assets/dune_lamp.png",
+        "price": 24.00
+      },
+      {
+        "name": "Flask Lamp",
+        "image": "./Assets/flask_lamps.png",
+        "price": 8.10
+      },
+      {
+        "name": "Hive Lamp",
+        "image": "./Assets/hive_lamps.png",
+        "price": 19.98
+      },
+      {
+        "name": "Pear Lamp",
+        "image": "./Assets/pear_lamp.png",
+        "price": 13.24
+      },
+      {
+        "name": "Pyramid Lamp",
+        "image": "./Assets/pyramid_lamp.png",
+        "price": 12.30
+      }
+    ]
+  }
