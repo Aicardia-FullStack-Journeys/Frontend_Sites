@@ -131,8 +131,8 @@ body {
     display: inline-block;
     width: 25px;
     height: 25px;
-    background-color: brown;
-    color: #eee;
+    background-color: none;
+    color: brown;
     border-radius: 50%;
     cursor: pointer;
   }
