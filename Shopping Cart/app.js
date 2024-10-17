@@ -59,7 +59,7 @@ const lamps = [
     const cartList = document.querySelector('.cart-list');
     const cartTotalElement = document.getElementById('total');
 
-function createListItem(lamp) {
+  function createListItem(lamp) {
     const li = document.createElement('li');
     li.className = 'item';
   
