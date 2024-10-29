@@ -122,9 +122,9 @@ function createListItem(dessert) {
     img.alt = dessert.name;
   
     const button = document.createElement('button');
-    button.className = 'cart-button'
+    button.className = 'cart-button';
     button.textContent = 'Add to Cart';
-  
+
     div.appendChild(img);
     div.appendChild(button);
   
