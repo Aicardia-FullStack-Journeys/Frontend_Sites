@@ -74,10 +74,14 @@ body{
     left: 27%;
     transform: translateX(-30%);
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     font-weight: 400;
     cursor: pointer;
+}
+
+.cart-button svg{
+    size: 30%;
 }
    
 
