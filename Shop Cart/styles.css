@@ -64,8 +64,10 @@ body{
 }
 
 
-.item-image-button button {
+.add-cart-button {
     border: 1px solid hsl(14, 86%, 42%);
+    background-color: hsl(20, 50%, 98%);
+    padding: 2px;
     position: absolute;
     width: 40%;
     height: 15%;
@@ -80,20 +82,45 @@ body{
     cursor: pointer;
 }
 
-.cart-button svg{
+.plus-min-button{
+    border: 1px solid hsl(14, 86%, 42%);
+    background-color: hsl(14, 86%, 42%);
+    position: absolute;
+    width: 40%;
+    height: 15%;
+    border-radius: 50px;
+    bottom: -4px;
+    left: 27%;
+    transform: translateX(-30%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 400;
+    cursor: pointer;
+    color: hsl(20, 50%, 98%);
+}
+
+.add-cart-button svg{
     size: 30%;
 }
-   
+ 
+
+svg.plus-svg svg.minus-svg{
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    border: 2px solid hsl(20, 50%, 98%));
+}
 
 svg.empty-svg{
     padding-left: 50px;
     padding-right: 50px;
 }
 
-.item-image-button button:hover {
+/*.item-image-button button:hover {
     background-color: hsl(14, 86%, 42%);
     color: white;
-}
+}*/
 
 .btns button{
     background-color: hsl(14, 86%, 42%);
@@ -253,3 +280,6 @@ svg.remove-item {
     font-size: large;
 }
 
+.hidden{
+    display: none;
+}

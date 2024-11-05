@@ -100,6 +100,17 @@ const desserts = [
    }
 ];
 
+const cartList = [];
+
+function findExistingItem(product){
+  
+  //if (cartList.length > 0){
+    const existingItem = cartList.find(cartItem => cartItem.category === product.category);
+    return existingItem;
+  //}
+  
+}
+
 
 const shoppingItemsList = document.getElementById('items-gallery').querySelector('ul');
 
@@ -107,10 +118,13 @@ function createListItem(dessert) {
   const li = document.createElement('li');
   li.className = 'item';
 
-  const div = document.createElement('div');
-  div.className = 'item-image-button';
+  const imageButtonWrapper = document.createElement('div');
+  imageButtonWrapper.className = 'item-image-button';
+  //imageButtonWrapper.id = `dessert-${dessert.category}`;
+  dessert.imageButtonWrapper  = imageButtonWrapper ;
 
   const img = document.createElement('img');
+  img.className = "img-btn-img";
   const screenWidth = window.innerWidth;
   if (screenWidth >= 1024) {
     img.src = dessert.image.desktop;
@@ -121,14 +135,12 @@ function createListItem(dessert) {
   }
   img.alt = dessert.name;
 
-  const button = document.createElement('button');
-  button.className = 'cart-button';
-  //button.textContent = 'Add to Cart';
+  const buttonElement = createAddToCartButton(dessert);
+  const buttonElement2 = createPlusMinButton(dessert, 1);
 
-  button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" fill="none" viewBox="0 0 21 20"><g fill="#C73B0F" clip-path="url(#a)"><path d="M6.583 18.75a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM15.334 18.75a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM3.446 1.752a.625.625 0 0 0-.613-.502h-2.5V2.5h1.988l2.4 11.998a.625.625 0 0 0 .612.502h11.25v-1.25H5.847l-.5-2.5h11.238a.625.625 0 0 0 .61-.49l1.417-6.385h-1.28L16.083 10H5.096l-1.65-8.248Z"/><path d="M11.584 3.75v-2.5h-1.25v2.5h-2.5V5h2.5v2.5h1.25V5h2.5V3.75h-2.5Z"/></g><defs><clipPath id="a"><path fill="#fff" d="M.333 0h20v20h-20z"/></clipPath></defs></svg> Add to Cart `;
-
-  div.appendChild(img);
-  div.appendChild(button);
+  imageButtonWrapper .appendChild(img);
+  imageButtonWrapper .appendChild(buttonElement);
+  imageButtonWrapper.appendChild(buttonElement2);
 
   const itemType = document.createElement('p');
   itemType.className = 'item-type';
@@ -142,19 +154,67 @@ function createListItem(dessert) {
   itemPrice.className = 'item-price';
   itemPrice.textContent = '$' + dessert.price.toFixed(2);
 
-  li.appendChild(div);
+  li.appendChild(imageButtonWrapper );
   li.appendChild(itemType);
   li.appendChild(itemName);
   li.appendChild(itemPrice);
 
-  const buttonSelect = li.querySelector('button');
-  buttonSelect.addEventListener('click', () => {
-    addToCart(dessert);
-  });
-
   return li;
 }
 
+//---buttons
+
+function createAddToCartButton(dessert) {
+  const addToCartButton = document.createElement('div');
+  addToCartButton.className = 'add-cart-button';
+  addToCartButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" fill="none" viewBox="0 0 21 20"><g fill="#C73B0F" clip-path="url(#a)"><path d="M6.583 18.75a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM15.334 18.75a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5ZM3.446 1.752a.625.625 0 0 0-.613-.502h-2.5V2.5h1.988l2.4 11.998a.625.625 0 0 0 .612.502h11.25v-1.25H5.847l-.5-2.5h11.238a.625.625 0 0 0 .61-.49l1.417-6.385h-1.28L16.083 10H5.096l-1.65-8.248Z"/><path d="M11.584 3.75v-2.5h-1.25v2.5h-2.5V5h2.5v2.5h1.25V5h2.5V3.75h-2.5Z"/></g><defs><clipPath id="a"><path fill="#fff" d="M.333 0h20v20h-20z"/></clipPath></defs></svg> Add to Cart `;
+  
+  addToCartButton.addEventListener('click', () => {
+    addToCart(dessert);
+  });
+  return addToCartButton;
+}
+
+function createPlusMinButton(dessert) {
+  const button = document.createElement('div');
+  button.className = 'plus-min-button';
+  button.classList.add('plus-min-button', 'hidden');
+
+  button.innerHTML = `
+    <div class="minus-svg">
+    <svg class="minus-svg" xmlns="http://www.w3.org/2000/svg" width="10" height="2" fill="none" viewBox="0 0 10 2">
+      <path fill="#fff" d="M0 .375h10v1.25H0V.375Z"/>
+    </svg>
+   </div>
+    <p class="plus-min-quantity"></p>
+    
+    <div class="plus-svg">
+      <svg class="plus-svg" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10">
+        <path fill="#fff" d="M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z"/>
+      </svg>
+    </div>
+  `;
+  const quantityText = button.getElementsByClassName('plus-min-quantity')[0];
+  const minusSVG = button.querySelector('.minus-svg');
+  const plusSVG = button.querySelector('.plus-svg');
+
+  minusSVG.addEventListener('click', () => {
+    const existingItem = findExistingItem(dessert);
+    if (existingItem.quantity >= 1) {
+      quantityText.textContent = getQuantityFromCart(dessert)-1;
+      removeFromCart(existingItem);
+      updateCartDisplay();
+    }
+  });
+
+  plusSVG.addEventListener('click', () => {
+    quantityText.textContent = getQuantityFromCart(dessert);
+    addToCart(dessert);
+    updateCartDisplay();
+  });
+
+  return button;
+}
 
 desserts.forEach(dessert => {
   shoppingItemsList.appendChild(createListItem(dessert));
@@ -163,8 +223,6 @@ desserts.forEach(dessert => {
 
 
 //Cart View
-
-const cartList = [];
 let listLength = 0;
 const cartItemsElement = document.querySelector('.cart-items');
 const emptyCartElement = cartItemsElement.querySelector('.empty-cart');
@@ -173,30 +231,90 @@ const cartTotalElement = document.getElementById('cart-total');
 const cartTotalSpan = cartTotalElement.querySelector('.total');
 
 
-
-function addToCart(item) {
-cartList.push(item);
 updateCartDisplay();
+
+function getQuantityFromCart(dessert) {
+  const existingItem = findExistingItem(dessert);
+  return existingItem ? existingItem.quantity : 0;
 }
 
-updateCartDisplay();
+function toggleButton(dessert) {
+  const buttonContainer = dessert.imageButtonWrapper; 
+  const existingAddToCartButton = buttonContainer.querySelector('.add-cart-button');
+  const existingPlusMinButton = buttonContainer.querySelector('.plus-min-button');
 
+  const quantity = getQuantityFromCart(dessert);
 
+  if (quantity > 0) {
+    existingAddToCartButton.classList.add('hidden');
+    existingPlusMinButton.classList.remove('hidden');
+    existingPlusMinButton.querySelector('.plus-min-quantity').textContent = getQuantityFromCart(dessert);
+  } else {
+    existingPlusMinButton.classList.add('hidden');
+    existingAddToCartButton.classList.remove('hidden');
+  }
+
+ // const existingItem = findExistingItem(dessert);
+ // const buttonContainers = document.querySelectorAll(`.item-image-button`);
+/*
+  buttonContainers.forEach(function(buttonContainer){
+
+    const existingAddToCartButton = buttonContainer.querySelector('.add-cart-button');
+    let existingPlusMinButton = buttonContainer.querySelector('.plus-min-button');
+    
+    //find how to access each individual button
+    //read up let and const
+    
+    if (existingItem) { 
+      /* buttonContainer.removeChild(existingAddToCartButton);
+      const plusMinButton = createPlusMinButton(dessert, getQuantityFromCart(dessert)); 
+      buttonContainer.appendChild(plusMinButton);
+      existingPlusMinButton = buttonContainer.querySelector('.plus-min-button'); */
+
+  //    buttonContainer.querySelector('.add-cart-button').classList.add('hidden');
+  //    buttonContainer.querySelector('.plus-min-button').classList.remove('hidden');
+  //  } else {
+      /*buttonContainer.removeChild(existingPlusMinButton);
+      const addToCartButton = createAddToCartButton(dessert);
+      buttonContainer.appendChild(addToCartButton);*/
+  //    buttonContainer.querySelector('.plus-min-button').classList.add('hidden');
+  //    buttonContainer.querySelector('.add-cart-button').classList.remove('hidden');
+  //  }
+  //});
+}
 
 function addToCart(item) {
   
-  const existingItem = cartList.find(cartItem => cartItem.category === item.category);
+  const existingItem = findExistingItem(item);
+  const clickedDessert = item; 
+  console.log("my item: " + clickedDessert);
 
-  
+  console.log(existingItem);
   if (existingItem) {
     existingItem.quantity = existingItem.quantity ? existingItem.quantity + 1 : 1;
   } else {
     
     item.quantity = 1;
     cartList.push(item);
+    
   }
+  
   updateCartDisplay();
-  console.log(listLength);
+  toggleButton(clickedDessert);
+}
+
+function removeFromCart(item) {
+  const existingItem = findExistingItem(item);
+  if (existingItem && existingItem.quantity > 1) {
+    existingItem.quantity--;
+    updateCartDisplay();
+    toggleButton(item);
+  } else if (existingItem && existingItem.quantity === 1) {
+    const index = cartList.indexOf(existingItem);
+    cartList.splice(index, 1);
+    updateCartDisplay();
+    toggleButton(item);
+  }
 }
 
 function updateCartDisplay() {
@@ -214,14 +332,12 @@ function updateCartDisplay() {
 
   let totalQuantity = 0;
   let totalPrice = 0;
-
   
   cartList.forEach(item => {
     totalQuantity += item.quantity;
     totalPrice += item.price * item.quantity;
   });
 
-  
   const cartItemsElement = document.querySelector('.filled-cart');
   cartItemsElement.innerHTML = '';
 
@@ -260,6 +376,8 @@ function updateCartDisplay() {
           updateCartDisplay();
         }
       });
+ 
+      //toggleButton(item);
 
       quantityElement.appendChild(itemQtyElement);
       quantityElement.appendChild(singlePriceElement);
@@ -271,7 +389,8 @@ function updateCartDisplay() {
 
       cartItemsElement.appendChild(cartItemElement);
 
-    });
+    });    
+
 
     const cartTotalElement = document.getElementById('cart-total');
     cartTotalElement.style.display = 'block';
@@ -281,10 +400,8 @@ function updateCartDisplay() {
 
   const cartHeader = document.querySelector('.cart-header h2');
   cartHeader.textContent = `Your Cart (${totalQuantity})`;
+
 }
-
-
-
 
 
 //popup
@@ -295,11 +412,12 @@ const startNewOrderButton = document.getElementById('start-new-order');
 
 const confirmOrderButton = document.querySelector('.order-confirm'); 
 
-confirmOrderButton.addEventListener('click', () => {
-orderList.innerHTML = '';
+confirmOrderButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  orderList.innerHTML = '';
 
-let totalPrice = 0;
-cartList.forEach(item => {
+  let totalPrice = 0;
+  cartList.forEach(item => {
   totalPrice += item.price * item.quantity;
 });
 
@@ -344,3 +462,5 @@ updateCartDisplay();
 
 orderPopup.style.display = 'none';
 });
+
+
