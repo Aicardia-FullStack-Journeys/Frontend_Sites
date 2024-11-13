@@ -287,7 +287,7 @@ function addToCart(item) {
   
   const existingItem = findExistingItem(item);
   const clickedDessert = item; 
-  console.log("my item: " + clickedDessert);
+  //console.log("my item: " + clickedDessert);
 
   console.log(existingItem);
   if (existingItem) {
