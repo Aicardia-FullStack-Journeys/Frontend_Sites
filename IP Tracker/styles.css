@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'Rubik';
+    src: url('https://fonts.gstatic.com/s/rubik/v28/Rubik-Regular.ttf') format('truetype'),
+         url('https://fonts.gstatic.com/s/rubik/v28/Rubik-Bold.ttf') format('truetype') weight 700,
+         url('https://fonts.gstatic.com/s/rubik/v28/Rubik-Medium.ttf') format('truetype') weight 500;
+  }
+  
+  body {
+    font-family: 'Rubik', sans-serif;
+  }
+
+  #site-wrapper {
+    display: grid;
+    width: 90%;
+    max-width: 90vw;
+    margin: auto;
+    padding: 10px;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .header-floater-container{
+    position: relative;
+  }
+
+  #item #item-isp{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #item {
+    border-right: 1px solid hsla(9, 16%, 75%, 0.63);
+    padding-right: 30px;
+  }
+
+  .item-heading{
+    color: hsl(0, 0%, 59%);
+    font-size: 12px;
+  }
+
+  .item-heading #item-content{
+    padding-right: 20px;
+  }
+
+  #item-content{
+    font-weight: 500;
+  }
+
+  .header-container {
+    background-image: url('./images/pattern-bg-desktop.png');
+    background-color: hsl(221, 76%, 48%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px; 
+  }
+
+  .header-container h2{
+    color: #fff;
+  }
+  
+  .search-bar {
+    display: flex;
+  }
+  
+  .search-bar input {
+    padding: 10px 15px;
+    border: 1px solid #ffffff;
+    border-radius: 8px 0 0 8px;
+    flex: 1; 
+    font-size: 18px;
+  }
+
+  .search-bar input:focus {
+    outline: none;
+  }
+  
+  .search-bar button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0 8px 8px 0; 
+    cursor: pointer;
+  }
+  
+  .floater-container {
+    display: flex;
+    justify-content: space-around;
+    width: 60%;  
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+
+    position: absolute;
+    bottom: -100px;
+    left: 20%;
+    right: 20%;
+    z-index: 2;
+    
+  }
+
+  #map {
+    height: 400px;
+    position: relative;
+    z-index: 1;
+  }
