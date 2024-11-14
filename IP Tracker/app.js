@@ -1,5 +1,4 @@
-
-const apiKey = secretPhrase();
+const apiKey = functionalSort();
 const apiUrl = `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&ipAddress=`;
 
 const ipAddressElement = document.querySelector('.ip-address-content');
