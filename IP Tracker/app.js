@@ -1,4 +1,5 @@
-const apiKey = 'at_1sE9vyZbLgn1g9h8kk04nwstRqTrP';
+
+const apiKey = secretPhrase();
 const apiUrl = `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&ipAddress=`;
 
 const ipAddressElement = document.querySelector('.ip-address-content');
@@ -17,6 +18,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 L.marker([51.5, -0.09]).addTo(map)
+
     .bindPopup('The Borourgh, London')
     .openPopup();
 
