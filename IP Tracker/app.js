@@ -10,16 +10,16 @@ const ispElement = document.querySelector('.isp-content');
 const searchButton = document.querySelector('.search-btn');
 const ipInput = document.querySelector('.ip-input');
 
-var map = L.map('map').setView([51.505, -0.09], 13);
+var map = L.map('map').setView([51.503399, -0.119519], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-L.marker([51.5, -0.09]).addTo(map)
+L.marker([51.503399, -0.119519]).addTo(map)
 
-    .bindPopup('The Borourgh, London')
-    .openPopup();
+    //.bindPopup('London Eye, London')
+    //.openPopup();
 
 
 searchButton.addEventListener('click', () => {
@@ -47,8 +47,8 @@ searchButton.addEventListener('click', () => {
       });
 
       L.marker([data.location.lat, data.location.lng]).addTo(map)
-        .bindPopup(data.location.city)
-        .openPopup();
+        //.bindPopup(data.location.city)
+        //.openPopup();
 
     })
     
