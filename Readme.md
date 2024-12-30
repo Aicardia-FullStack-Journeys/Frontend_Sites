@@ -6,6 +6,8 @@ This repository serves as a showcase of my ongoing projects, where I'll be exper
 
 Project Gallery:
 - Project 1: Shopping Cart
+- project 2: IP Tracker
+- Project 3: Node_Practice
 
 Stay tuned for more exciting projects!
 
