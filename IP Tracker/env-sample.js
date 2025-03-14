@@ -1,3 +1,3 @@
-function keyGenerator() {
-    return '    ';
+export function keyGenerator() {
+    return ' '; 
   }
